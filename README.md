@@ -1,5 +1,8 @@
-## Example demos and data visualizations with [`echoshader`](https://echoshader.readthedocs.io/en/latest/echoshader_doc/index.html).
+## Example demos and data visualizations with `echoshader`.
 
+`echoshader`[docs](https://echoshader.readthedocs.io/en/latest/echoshader_doc/index.html)
+
+### Demos
 * panel tricolor with file selection (echoshader v.0.1.0)
 
 ```
