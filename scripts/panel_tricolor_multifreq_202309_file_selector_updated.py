@@ -59,8 +59,6 @@ def update_echogram(zarr_file):
 
     year = filename.split("/")[0]
 
-    print(year)
-
     evr_manual_file = Path(EVR_LABEL_FOLDER) / (year + EVR_LABEL_FOLDER_pattern) / f"{transect}_regions.evr"
 
     print(evr_manual_file)
@@ -151,7 +149,7 @@ def update_echogram(zarr_file):
 
         df_r2d_manual = r2d_manual.data
         df_r2d_manual_hake = df_r2d_manual[df_r2d_manual["region_class"].isin(HAKE_LABELS)]
-        region_id_manual_hake = df_r2d_manual_hake["region_id"].values.tolist()
+        region_id_manual_hake = df_r2d_manual_hake["region_id"].values.astype("int").tolist()
 
 
         # Close regions manually due to bug addressed in #133 (not merged yet)
@@ -163,7 +161,7 @@ def update_echogram(zarr_file):
 
 
         # Plot region
-        regions_manual = holoviews.Path(zip(ping_times_manual, depths_manual)).opts(color='k', line_width=2, xlim=(ds_MVBS.ping_time.min().values, ds_MVBS.ping_time.max().values))
+        regions_manual = holoviews.Path(zip(ping_times_manual, depths_manual)).opts(color='c', line_width=2, xlim=(ds_MVBS.ping_time.min().values, ds_MVBS.ping_time.max().values))
 
 
     if regions_manual is not None and regions_pred is not None:
