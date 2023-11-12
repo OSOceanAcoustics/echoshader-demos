@@ -65,19 +65,14 @@ def update_echogram(zarr_file):
 
     ds_MVBS = xr.open_mfdataset(zarr_file[0], engine="zarr")
 
+    print(ds_MVBS)
+
     # drop echo_range if it is there (it will be reassigned to depth)
     if "echo_range" in list(ds_MVBS.coords):
-        ds_MVBS = (
-            ds_MVBS
-            .drop(["echo_range"])
-            )
-
-    # swap depth with echo_range since echogram expects echo_range variable
-    ds_MVBS = (
-        ds_MVBS
-        .assign_coords({"echo_range": ("depth", ds_MVBS["depth"].values)})
-        .swap_dims({"depth": "echo_range"})
-    )
+       ds_MVBS = (
+          ds_MVBS
+          .drop(["echo_range"])
+           )
    
     gram_opts = opts.RGB(width=1200, height=500, xlabel="Time", ylabel="depth", title=filename)
 
@@ -106,6 +101,7 @@ def update_echogram(zarr_file):
         vmin = -70, 
         vmax = -40,
         rgb_composite = True,
+        vert_dim = "depth",
         opts = gram_opts,
     )
 
